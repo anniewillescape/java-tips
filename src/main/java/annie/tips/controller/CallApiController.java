@@ -1,6 +1,7 @@
 package annie.tips.controller;
 
 import annie.tips.service.CallApiWithRestTemplateService;
+import annie.tips.service.CallApiWithWebClientService;
 import annie.tips.util.AppUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,9 @@ public class CallApiController {
   private final CallApiWithRestTemplateService callApiWithRestTemplateService;
 
   @NonNull
+  private final CallApiWithWebClientService callApiWithWebClientService;
+
+  @NonNull
   private final AppUtil appUtil;
 
 
@@ -28,6 +32,16 @@ public class CallApiController {
       return callApiWithRestTemplateService.callMyMockApi();
     }
     return callApiWithRestTemplateService.callMyMockApiWithResponseCode(Integer.parseInt(status));
+  }
+
+  @GetMapping("call-mock-api/web-client/{status}")
+  public String callMockApiWithWebClient(
+      @PathVariable(name = "status", required = false) String status) {
+
+    if (StringUtils.isBlank(status) || !appUtil.canParseToInt(status)) {
+      return callApiWithWebClientService.callMyMockApi();
+    }
+    return callApiWithWebClientService.callMyMockApiWithResponseCode(Integer.parseInt(status));
   }
 
 }
