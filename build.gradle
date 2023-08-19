@@ -2,6 +2,7 @@ plugins {
   id 'java'
   id 'org.springframework.boot' version '2.7.14'
   id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+
 }
 
 group = 'annie'
@@ -9,6 +10,12 @@ version = '0.0.1-SNAPSHOT'
 
 java {
   sourceCompatibility = '11'
+}
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.8"
+  }
 }
 
 configurations {
@@ -23,6 +30,8 @@ repositories {
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.boot:spring-boot-starter-webflux'
+  implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
   implementation 'org.springframework.retry:spring-retry'
 
   implementation 'org.apache.commons:commons-lang3'
