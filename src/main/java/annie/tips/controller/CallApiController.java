@@ -5,11 +5,13 @@ import annie.tips.service.CallApiWithWebClientService;
 import annie.tips.util.AppUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class CallApiController {
@@ -28,6 +30,8 @@ public class CallApiController {
   public String callMockApiWithRestTemplate(
       @PathVariable(name = "status", required = false) String status) {
 
+    log.info("callMockApiWithRestTemplate status: {}", status);
+
     if (StringUtils.isBlank(status) || !appUtil.canParseToInt(status)) {
       return callApiWithRestTemplateService.callMyMockApi();
     }
@@ -37,6 +41,8 @@ public class CallApiController {
   @GetMapping("call-mock-api/web-client/{status}")
   public String callMockApiWithWebClient(
       @PathVariable(name = "status", required = false) String status) {
+
+    log.info("callMockApiWithWebClient status: {}", status);
 
     if (StringUtils.isBlank(status) || !appUtil.canParseToInt(status)) {
       return callApiWithWebClientService.callMyMockApi();
