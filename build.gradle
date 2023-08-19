@@ -27,6 +27,9 @@ dependencies {
 
   implementation 'org.apache.commons:commons-lang3'
 
+  implementation 'net.logstash.logback:logstash-logback-encoder:6.6'
+  runtimeOnly 'org.codehaus.janino:janino'
+
   compileOnly 'org.projectlombok:lombok'
   annotationProcessor 'org.projectlombok:lombok'
   

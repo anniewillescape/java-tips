@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+  <!-- Define "CONSOLE" appender defined in [base.xml](https://github.com/spring-projects/spring-boot/blob/v2.7.14/spring-boot-project/spring-boot/src/main/resources/org/springframework/boot/logging/logback/base.xml) -->
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+  <!-- Define custom "FILE" appender -->
+  <springProperty scope="context" name="LOG_FILE" source="logging.file.name"/>
+  <if condition='isDefined("LOG_FILE")'>
+    <then>
+      <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+          <maxHistory>1</maxHistory>
+          <fileNamePattern>${LOG_FILE}.%d{yyyyMMdd}.gz</fileNamePattern>
+        </rollingPolicy>
+      </appender>
+    </then>
+  </if>
+
+  <!-- Define root -->
+  <root level="INFO">
+    <if condition='isDefined("LOG_FILE")'>
+      <then>
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+      </then>
+      <else>
+        <appender-ref ref="CONSOLE" />
+      </else>
+    </if>
+  </root>
+</configuration>
