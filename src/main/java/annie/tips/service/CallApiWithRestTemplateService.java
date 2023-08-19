@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class CallApiService {
+public class CallApiWithRestTemplateService {
 
   @NonNull
   private final RestTemplate restTemplate;
