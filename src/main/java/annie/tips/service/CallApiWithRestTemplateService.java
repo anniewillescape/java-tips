@@ -26,6 +26,8 @@ public class CallApiWithRestTemplateService {
 
   public String callMyMockApi(){
 
+    log.info("callMyMockApi");
+
     try {
       var res = restTemplate.exchange(
           // use httpbin (see how to start httpbin on README.md)
@@ -42,6 +44,8 @@ public class CallApiWithRestTemplateService {
   }
 
   public String callMyMockApiWithResponseCode(int httpStatus) {
+
+    log.info("callMyMockApiWithResponseCode httpStatus: {}", httpStatus);
 
     if (!appUtil.isValidHttpCode(httpStatus)) {
       return "input string is invalid";

@@ -20,8 +20,9 @@ public class CallApiController {
   private final AppUtil appUtil;
 
 
-  @GetMapping("call-mock-api/{status}")
-  public String callMockApi(@PathVariable(name = "status", required = false) String status) {
+  @GetMapping("call-mock-api/rest-template/{status}")
+  public String callMockApiWithRestTemplate(
+      @PathVariable(name = "status", required = false) String status) {
 
     if (StringUtils.isBlank(status) || !appUtil.canParseToInt(status)) {
       return callApiWithRestTemplateService.callMyMockApi();
