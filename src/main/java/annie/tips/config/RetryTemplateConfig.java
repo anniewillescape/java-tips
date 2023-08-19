@@ -32,6 +32,7 @@ public class RetryTemplateConfig {
 
     var retryPolicy = new ExceptionClassifierRetryPolicy();
     retryPolicy.setExceptionClassifier(configureHttpStatusBaseRetryPolicy());
+    retryTemplate.setRetryPolicy(retryPolicy);
 
     return retryTemplate;
   }
