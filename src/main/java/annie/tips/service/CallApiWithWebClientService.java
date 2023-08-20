@@ -19,22 +19,21 @@ import reactor.util.retry.Retry;
 @Service
 public class CallApiWithWebClientService {
 
-  @NonNull
-  private final AppUtil appUtil;
-
-  private WebClient webClient;
-
   private static final int DEFAULT_RETRY_COUNT = 3;
   private static final int DEFAULT_RETRY_INTERVAL = 150;
 
+  @NonNull
+  private final AppUtil appUtil;
+  private WebClient webClient;
+
   @PostConstruct
-  private void createWebClient(){
+  private void createWebClient() {
     webClient = WebClient.builder()
         .baseUrl("http://0.0.0.0:80")
         .build();
   }
 
-  public String callMyMockApi(){
+  public String callMyMockApi() {
 
     log.info("callMyMockApi");
 
@@ -55,7 +54,7 @@ public class CallApiWithWebClientService {
     log.info("callMyMockApiWithResponseCode httpStatus: {}", httpStatus);
 
     if (!appUtil.isValidHttpCode(httpStatus)) {
-      return "input string is invalid";
+      return "input http status is invalid";
     }
 
     Optional<String> res;
